@@ -12,10 +12,12 @@ async function login(browser, username, password) {
     await driver.get('https://the-internet.herokuapp.com/login');
     await driver.sleep(500);
 
-    const usernameField = await driver.findElement({ xpath: '//*[@id="username"]' })
+    // const usernameField = await driver.findElement({ xpath: '//*[@id="username"]' })
+    const usernameField = await driver.findElement( By.xpath( "//*[starts-with(@id, 'user')]"));
     usernameField.sendKeys(username);
 
-    const passwordField = await driver.findElement({ xpath: '//*[@id="password"]' })
+    // const passwordField = await driver.findElement({ xpath: '//*[@id="password"]' })
+    const passwordField = await driver.findElement( By.xpath("//*[contains(@id,'pass') and @type='password']"));
     passwordField.sendKeys(password);
 
     await driver.sleep(1000);
