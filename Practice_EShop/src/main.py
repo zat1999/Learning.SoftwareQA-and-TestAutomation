@@ -1,6 +1,7 @@
 import config.configDriver as configDriver
 import json
 import time
+import pages.login as loginPage
 
 def login():
 
@@ -11,9 +12,17 @@ def login():
     driver.get(url)
 
     user = configDriver.get_userdata(userType="STANDARD")
-    print("User: ", user["username"])
-    print("password: ", user["password"])
+
+    username_field, password_field = loginPage.get_login_fields(driver)
+    login_button = loginPage.get_login_button(driver)
+
+    time.sleep(2)
+    username_field.send_keys(user["username"])
+    password_field.send_keys(user["password"])
     
+    time.sleep(2)
+    login_button.click()
+
     time.sleep(20)
     
     driver.quit()
