@@ -1,0 +1,7 @@
+Installing:
+
+npm init -y
+npm install cypress --save-dev (cypress is used for developing/testing NOT part of production)
+npx cypress open
+
+E2E Testing
