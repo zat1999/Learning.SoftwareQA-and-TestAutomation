@@ -10,6 +10,6 @@ describe('Login Functionality', () => {
         cy.get('h1').should('contain', 'Welcome to the demo app')
         cy.get('#username').should('be.visible')                        //username input can be seen
         cy.get('#password').should('exist')                             // should exist even if not visible
-        cy.get('button[type="submit"]').should('have.text', 'Login')    // submit button has correct text       
+        cy.get('button[type="submit"]').should('have.text', 'Login').should('be.visible')    // submit button has correct text       
     })
 })
