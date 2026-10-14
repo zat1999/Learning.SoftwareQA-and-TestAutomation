@@ -13,12 +13,6 @@ public final class App {
      */
     public static void main(String[] args) {
 
-
-        Calculator calculator = new Calculator();
-
-        int result = calculator.add(5, 3);
-
         System.out.println("Hello World!");
-        System.out.println(result);
     }
 }

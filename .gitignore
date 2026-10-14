@@ -2,3 +2,10 @@ node_modules/
 venv/
 __pycache__/
 /.metadata/
+*/target/*
+
+JUnit/demo/target/
+*.class
+.vscode/
+.idea/
+*.log
