@@ -49,3 +49,21 @@ def test_wrong_password_login(driver):
 
     assert error.is_displayed()
     assert "Username and password do not match any user in this service" in error.text
+
+def test_locked_out_user(driver):
+    driver.get("https://www.saucedemo.com/")
+
+    driver.find_element(By.ID, "user-name").send_keys(
+        "locked_out_user"
+    )
+    driver.find_element(By.ID, "password").send_keys(
+        "secret_sauce"
+    )
+    driver.find_element(By.ID, "login-button").click()
+
+    error = driver.find_element(
+        By.CSS_SELECTOR, "[data-test='error']"
+    )
+
+    assert error.is_displayed()
+    assert "Sorry, this user has been locked out." in error.text
