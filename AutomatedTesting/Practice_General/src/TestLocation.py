@@ -11,23 +11,21 @@ def clickGetLocation(driver):
 
 
 def getLocation(driver):
-    lat = driver.find_element(By.XPATH, "//*[@id='lat-value']")
-    long = driver.find_element(By.XPATH, "//*[@id='long-value']")
+    print("Finding Location:")
+    lat = driver.find_element(By.XPATH, "//*[@id='lat-value']").text
+    long = driver.find_element(By.XPATH, "//*[@id='long-value']").text
     time.sleep(1)
-    # return {"LAT" : lat, "LONG" : long}
+    return {"LAT" : lat, "LONG" : long}
 
 
 
 
 driver = BrowserConfig.getDriver(BrowserConfig.Browser.CHROME)
 BrowserConfig.openBrowser("https://the-internet.herokuapp.com/geolocation", driver)
-time.sleep(2)
-location = getLocation(driver)
-time.sleep(2)
+time.sleep(2) # delay needed to load in options maybe(?)
 clickGetLocation(driver)
+location = getLocation(driver)
 
+print(f"Your Location is [{location["LAT"]}, {location["LONG"]}]" )
 
-
-
-time.sleep(2)
 BrowserConfig.closeBrowser(driver)
