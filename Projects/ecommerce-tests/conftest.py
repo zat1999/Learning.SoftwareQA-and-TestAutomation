@@ -4,12 +4,14 @@ from pathlib import Path
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from pages.login_page import LoginPage
 
 CONFIG_PATH = Path(__file__).resolve().parent / "config" / "config.json"
 
 with CONFIG_PATH.open(encoding="utf-8") as file:
     CONFIG = json.load(file)
 
+# set up the driver options and settings
 @pytest.fixture
 def driver():
     options = Options()
@@ -29,3 +31,13 @@ def driver():
     yield browser_driver
 
     browser_driver.quit()
+
+
+# will automatically set the driver and go to the inventory page
+@pytest.fixture
+def logged_in_driver(driver):
+    login_page = LoginPage(driver)
+    login_page.open("https://www.saucedemo.com/")
+    login_page.login("standard_user", "secret_sauce")
+
+    return driver
