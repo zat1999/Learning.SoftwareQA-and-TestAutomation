@@ -1,69 +1,40 @@
 from selenium.webdriver.common.by import By
-
+from pages.login_page import LoginPage
 
 def test_valid_login(driver):
-    driver.get("https://www.saucedemo.com/")
 
-    driver.find_element(By.ID, "user-name").send_keys(
-        "standard_user"
-    )
-    driver.find_element(By.ID, "password").send_keys(
-        "secret_sauce"
-    )
-    driver.find_element(By.ID, "login-button").click()
+    login_page = LoginPage(driver)
+    login_page.open("https://www.saucedemo.com/")
+    login_page.login("standard_user", "secret_sauce")
 
     assert "/inventory.html" in driver.current_url
 
+
 def test_wrong_username_login(driver):
-    driver.get("https://www.saucedemo.com/")
 
-    driver.find_element(By.ID, "user-name").send_keys(
-        "standard_user_fail"
-    )
-    driver.find_element(By.ID, "password").send_keys(
-        "secret_sauce"
-    )
-    driver.find_element(By.ID, "login-button").click()
+    login_page = LoginPage(driver)
+    login_page.open("https://www.saucedemo.com/")
+    login_page.login("standard_user_fail", "secret_sauce")
 
-    error = driver.find_element(
-        By.CSS_SELECTOR, "[data-test='error']"
-    )
-
+    error = login_page.get_error_message()
     assert error.is_displayed()
     assert "Username and password do not match any user in this service" in error.text
 
 def test_wrong_password_login(driver):
-    driver.get("https://www.saucedemo.com/")
+    login_page = LoginPage(driver)
+    login_page.open("https://www.saucedemo.com/")
+    login_page.login("standard_user", "secret_sauce_fail")
 
-    driver.find_element(By.ID, "user-name").send_keys(
-        "standard_user"
-    )
-    driver.find_element(By.ID, "password").send_keys(
-        "secret_sauce_fail"
-    )
-    driver.find_element(By.ID, "login-button").click()
-
-    error = driver.find_element(
-        By.CSS_SELECTOR, "[data-test='error']"
-    )
-
+    error = login_page.get_error_message()
     assert error.is_displayed()
     assert "Username and password do not match any user in this service" in error.text
 
 def test_locked_out_user(driver):
-    driver.get("https://www.saucedemo.com/")
 
-    driver.find_element(By.ID, "user-name").send_keys(
-        "locked_out_user"
-    )
-    driver.find_element(By.ID, "password").send_keys(
-        "secret_sauce"
-    )
-    driver.find_element(By.ID, "login-button").click()
+    login_page = LoginPage(driver)
+    login_page.open("https://www.saucedemo.com/")
+    login_page.login("locked_out_user", "secret_sauce")
 
-    error = driver.find_element(
-        By.CSS_SELECTOR, "[data-test='error']"
-    )
-
+    error = login_page.get_error_message()
     assert error.is_displayed()
     assert "Sorry, this user has been locked out." in error.text
