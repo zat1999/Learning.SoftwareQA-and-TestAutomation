@@ -41,3 +41,7 @@ def logged_in_driver(driver):
     login_page.login("standard_user", "secret_sauce")
 
     return driver
+
+@pytest.fixture
+def checkout_in_driver(driver):
+    return driver
