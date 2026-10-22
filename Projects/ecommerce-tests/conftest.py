@@ -45,11 +45,16 @@ def driver():
     browser_driver.quit()
 
 
+@pytest.fixture
+def base_url():
+    return CONFIG["base_url"]
+
+
 # will automatically set the driver and go to the inventory page
 @pytest.fixture
 def logged_in_driver(driver):
     login_page = LoginPage(driver)
-    login_page.open("https://www.saucedemo.com/")
+    login_page.open(CONFIG["base_url"])
     login_page.login("standard_user", "secret_sauce")
 
     return driver
