@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -16,7 +17,8 @@ with CONFIG_PATH.open(encoding="utf-8") as file:
 def driver():
     options = Options()
 
-    if CONFIG["headless"]:
+    headless = os.environ.get("HEADLESS", str(CONFIG["headless"])).lower()
+    if headless in {"1", "true", "yes"}:
         options.add_argument("--headless=new")
 
     browser = CONFIG["browser"].lower()
