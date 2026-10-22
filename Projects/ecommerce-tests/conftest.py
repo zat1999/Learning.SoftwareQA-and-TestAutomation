@@ -22,6 +22,16 @@ def driver():
     browser = CONFIG["browser"].lower()
 
     if browser == "chrome":
+        # Disable Chrome password manager and breach detection
+        options.add_experimental_option(
+            "prefs",
+            {
+                "credentials_enable_service": False,
+                "profile.password_manager_enabled": False,
+                "profile.password_manager_leak_detection": False,
+            },
+        )
+
         browser_driver = webdriver.Chrome(options=options)
     else:
         raise ValueError(f"Unsupported browser: {browser}")
