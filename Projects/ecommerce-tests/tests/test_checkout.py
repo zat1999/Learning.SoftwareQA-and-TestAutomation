@@ -40,26 +40,26 @@ def test_continue_checkout(inventory, checkout, driver):
 def test_form_fill(inventory, checkout, driver, fname, lname, post, expected_page):
     inventory.add_product_to_cart("sauce-labs-backpack")
     checkout.enter_cart()
-    time.sleep(0.5)
+    time.sleep(1.5)
     assert "/cart.html" in driver.current_url
     checkout.checkout_step_one()
-    time.sleep(0.5)
+    time.sleep(1.5)
     checkout.fill_form(fname, lname, post)
-    time.sleep(0.5)
+    time.sleep(1.5)
     checkout.checkout_continue()
-    time.sleep(0.5)
+    time.sleep(1.5)
     assert expected_page in driver.current_url
 
 
 def test_finish_checkout(inventory, checkout, driver):
     inventory.add_product_to_cart("sauce-labs-backpack")
     checkout.enter_cart()
-    time.sleep(0.5)
+    time.sleep(1.5)
     assert "/cart.html" in driver.current_url
     checkout.checkout_step_one()
     checkout.fill_form(fname = "John", lname  = "Smith", postal = "12345")
     checkout.checkout_continue()
-    time.sleep(0.5)
+    time.sleep(1.5)
     checkout.checkout_finish()
-    time.sleep(0.5)
+    time.sleep(1.5)
     assert "checkout-complete.html" in driver.current_url
