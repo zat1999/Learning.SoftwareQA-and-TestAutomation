@@ -1,0 +1,1 @@
+Example of Running JUnit and Coursera Based Assignments. This makes use of simple Test case examples and setting up simple CI workflow. 

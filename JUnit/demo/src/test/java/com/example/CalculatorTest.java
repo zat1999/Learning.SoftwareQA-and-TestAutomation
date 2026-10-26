@@ -13,6 +13,7 @@ public class CalculatorTest {
     private static final int SECOND_NUMBER = 3;
     private static final int EXPECTED_SUM = 8;
     private static final int EXPECTED_DIFFERENCE = 2;
+    private static final int EXPECTED_MULTIPLY = 15;
 
     private final Calculator calculator = new Calculator();
 
@@ -29,6 +30,14 @@ public class CalculatorTest {
         assertEquals(
             EXPECTED_DIFFERENCE,
             calculator.subtract(FIRST_NUMBER, SECOND_NUMBER)
+        );
+    }
+
+    @Test
+    void testMultiply() {
+        assertEquals(
+            EXPECTED_MULTIPLY,
+            calculator.multiply(FIRST_NUMBER, SECOND_NUMBER)
         );
     }
 }

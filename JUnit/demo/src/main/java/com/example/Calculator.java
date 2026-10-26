@@ -26,4 +26,15 @@ public class Calculator {
     public int subtract(int a, int b) {
         return a - b;
     }
+
+    /**
+     * Multiply the first and second integer.
+     *
+     * @param a the first integer
+     * @param b the second integer
+     * @return the multiplication between the integers
+     */
+    public int multiply(int a, int b) {
+        return a * b;
+    }
 }

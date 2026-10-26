@@ -14,9 +14,13 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       
-      - name: Build with Maven
+      - name: Run AppTest
         working-directory: ./JUnit/demo
-        run: mvn -B test
+        run: mvn -B -Dtest=AppTest test
+
+      - name: Run CalculatorTest
+        working-directory: ./JUnit/demo
+        run: mvn -B -Dtest=CalculatorTest test
 
   ecommerce-tests:
     runs-on: ubuntu-latest
