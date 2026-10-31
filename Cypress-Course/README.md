@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Upon cloning, to install:
+```bash
+npm install
+npm install cypress --save-dev
+npx cypress open
+```
+
+
 First, run the development server:
 
 ```bash
