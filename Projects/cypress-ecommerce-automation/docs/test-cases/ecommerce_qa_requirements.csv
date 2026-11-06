@@ -1,0 +1,30 @@
+﻿Requirement ID,Module,Requirement Description,Acceptance Criteria,Priority
+REQ-AUTH-001,Authentication,The application shall allow a user to log in with valid credentials.,A user with valid credentials is authenticated and redirected to the inventory page.,High
+REQ-AUTH-002,Authentication,The application shall reject an invalid username.,Login is unsuccessful and an authentication error is displayed; the user remains on the login page.,High
+REQ-AUTH-003,Authentication,The application shall reject an invalid password.,Login is unsuccessful and an authentication error is displayed; the user remains on the login page.,High
+REQ-AUTH-004,Authentication,The application shall validate that the username is provided.,Submitting the login form with an empty username displays a required-username validation message.,High
+REQ-AUTH-005,Authentication,The application shall validate that the password is provided.,Submitting the login form with an empty password displays a required-password validation message.,High
+REQ-AUTH-006,Authentication,The application shall validate login submissions with both credential fields empty.,Submitting with both fields empty is rejected and the username-required message is displayed.,High
+REQ-AUTH-007,Authentication,The application shall prevent a locked-out account from logging in.,Login is unsuccessful and a locked-out-account message is displayed.,High
+REQ-AUTH-008,Authentication,The application shall allow an authenticated user to log out.,Selecting Logout ends the session and returns the user to the login page.,Medium
+REQ-PROD-001,Products,The application shall display the available products on the inventory page.,The inventory page displays product entries with their available information.,High
+REQ-PROD-002,Products,The application shall display product names and prices.,Each displayed product has the correct name and price.,High
+REQ-PROD-003,Products,The application shall support sorting products by name in ascending order.,Products are displayed alphabetically from A to Z after selecting the corresponding sort option.,Medium
+REQ-PROD-004,Products,The application shall support sorting products by name in descending order.,Products are displayed alphabetically from Z to A after selecting the corresponding sort option.,Medium
+REQ-PROD-005,Products,The application shall support sorting products by price in ascending order.,Products are displayed from the lowest price to the highest price after selecting the corresponding sort option.,High
+REQ-PROD-006,Products,The application shall support sorting products by price in descending order.,Products are displayed from the highest price to the lowest price after selecting the corresponding sort option.,High
+REQ-PROD-007,Products,The application shall allow a user to open a product's detail view.,Selecting a product opens its detail view and displays the product information.,Medium
+REQ-CART-001,Shopping Cart,The application shall allow a user to add a product to the shopping cart.,The selected product appears in the cart and the cart indicator reflects the addition.,High
+REQ-CART-002,Shopping Cart,The application shall allow a user to add multiple products to the shopping cart.,All selected products appear in the cart and the cart indicator reflects the number of items.,High
+REQ-CART-003,Shopping Cart,The application shall allow a user to remove a product from the inventory page after adding it.,The product is removed from the cart and the cart indicator is updated.,High
+REQ-CART-004,Shopping Cart,The application shall allow a user to remove a product from the cart page.,The selected product is removed from the cart and the displayed cart contents are updated.,High
+REQ-CART-005,Shopping Cart,The application shall display the details of products added to the cart.,"The cart displays the selected product information, including its name and price.",High
+REQ-CART-006,Shopping Cart,The application shall allow a user to return from the cart to continue shopping.,Selecting Continue Shopping returns the user to the inventory page.,Medium
+REQ-CHECK-001,Checkout,The application shall allow a user to begin checkout from the shopping cart.,Selecting Checkout opens the checkout information form.,High
+REQ-CHECK-002,Checkout,The application shall accept valid customer information during checkout.,"Submitting valid first name, last name and postal code allows the user to proceed to the order overview.",High
+REQ-CHECK-003,Checkout,The application shall validate that the first name is provided.,Submitting checkout information with an empty first name is rejected with a relevant validation message.,High
+REQ-CHECK-004,Checkout,The application shall validate that the last name is provided.,Submitting checkout information with an empty last name is rejected with a relevant validation message.,High
+REQ-CHECK-005,Checkout,The application shall validate that the postal code is provided.,Submitting checkout information with an empty postal code is rejected with a relevant validation message.,High
+REQ-CHECK-006,Checkout,The application shall display an order overview before order completion.,The overview displays the selected items and applicable order totals.,High
+REQ-CHECK-007,Checkout,The application shall calculate and display the item total and tax.,The displayed item total equals the sum of item prices and the displayed tax follows the application's calculation.,High
+REQ-CHECK-008,Checkout,The application shall allow a user to complete an order.,Completing checkout displays an order confirmation or completion message.,High
