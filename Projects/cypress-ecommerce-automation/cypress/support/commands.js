@@ -23,3 +23,22 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('getDataTest', (dataTestSelector) => {
+    return cy.get(`[data-test="${dataTestSelector}"]`)
+})
+
+Cypress.Commands.add('login', (username, password) => {
+    cy.get('[data-test="username"]').clear().then(($input) => {
+        if(username) {
+            cy.wrap($input).type(username)
+        }
+    })
+    
+    cy.get('[data-test="password"]').clear().then(($input) => {
+        if(password) {
+            cy.wrap($input).type(password)
+        }
+    })
+})
+
