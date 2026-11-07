@@ -1,0 +1,9 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/books/:bookId"
+method: GET
+pathVariables:
+  - key: bookId
+    value: "1"
+    description: ""
+order: 3000

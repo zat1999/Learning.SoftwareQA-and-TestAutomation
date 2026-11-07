@@ -1,0 +1,18 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/books?type=fiction&limit=3"
+method: GET
+queryParams:
+  - key: type
+    value: fiction
+    disabled: false
+    description: ""
+  - key: type
+    value: non-fiction
+    disabled: true
+    description: ""
+  - key: limit
+    value: "3"
+    disabled: false
+    description: ""
+order: 2000
