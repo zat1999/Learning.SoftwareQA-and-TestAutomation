@@ -1,0 +1,20 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/orders?="
+method: POST
+queryParams:
+  "": ""
+body:
+  type: json
+  content: "{\r
+
+    \  \"bookId\": 1,\r
+
+    \  \"customerName\": \"{{$randomFullName}}\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 4000

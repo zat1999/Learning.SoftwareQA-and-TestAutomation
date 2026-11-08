@@ -1,0 +1,14 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/api-clients"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \   \"clientName\": \"Johnny\",\r
+
+    \   \"clientEmail\": \"Johnny@example.com\"\r
+
+    }"
+order: 5000
