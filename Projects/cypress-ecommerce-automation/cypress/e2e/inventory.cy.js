@@ -18,7 +18,7 @@ describe('Inventory', () => {
     })
     
     // REQ-PROD-002
-    it('Get Name and Price', () => {
+    it('Get Product Details on Page', () => {
 
       cy.getDataTest('inventory-list')
       .find('[data-test="inventory-item"]')
@@ -85,7 +85,7 @@ describe('Inventory', () => {
     })
 
     // REQ-PROD-005 in Ascending order by Price High to Low
-    it.only('Sort Items Price High - Low', () => {
+    it('Sort Items Price High - Low', () => {
 
       // select Highest to Lowest Price Order
       cy.getDataTest('product-sort-container').select('hilo')
@@ -106,7 +106,7 @@ describe('Inventory', () => {
     })
 
     // REQ-PROD-006 in Descending order by Price Low to High
-    it.only('Sort Items Price Low - High', () => {
+    it('Sort Items Price Low - High', () => {
 
       // select Lowest to Highest Price Order
       cy.getDataTest('product-sort-container').select('lohi')
@@ -124,6 +124,16 @@ describe('Inventory', () => {
         cy.log(JSON.stringify(itemArray))
         cy.log(JSON.stringify(sorted_itemArray))
       })
+    })
+
+    // REQ-PROD-007 view product in its page
+    it('View Products in Detail', () => {
+
+      // TODO: add a assertion for the detail, price, title rather than just the container
+      cy.getDataTest('inventory-item-sauce-labs-backpack-img').click()
+      cy.getDataTest('inventory-item').should('exist')
+      cy.get('.inventory_details_container').should('exist')
+      cy.get('.inventory_details_img_container').should('exist')
     })
 
   })
