@@ -2,4 +2,28 @@ $kind: http-request
 description: ""
 url: "{{baseUrl}}/status"
 method: GET
+scripts:
+  - type: afterResponse
+    code: "const responseBody = pm.response.json();\r
+
+      console.log(responseBody)\r
+
+      \r
+
+      pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Status is OK\", () => {\r
+
+      \    pm.expect(responseBody.status).to.equal(\"OK\")\r
+
+      \    pm.expect(responseBody['status']).to.equal(\"OK\")\r
+
+      });"
+    language: text/javascript
 order: 1000
