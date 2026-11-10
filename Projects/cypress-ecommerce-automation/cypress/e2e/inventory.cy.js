@@ -84,4 +84,46 @@ describe('Inventory', () => {
       })
     })
 
+    // REQ-PROD-005 in Ascending order by Price High to Low
+    it.only('Sort Items Price High - Low', () => {
+
+      // select Highest to Lowest Price Order
+      cy.getDataTest('product-sort-container').select('hilo')
+    
+      cy.getItemAttributes(['name','price']).then((items) => {
+        
+        const itemArray = items.map(item => ({
+          name: item.name,
+          price: parseFloat(item['price'].replace('$',''))
+        }))
+        
+        const sorted_itemArray = [...itemArray].sort((a, b) => b.price - a.price)
+        expect(itemArray).to.deep.equal(sorted_itemArray)
+
+        cy.log(JSON.stringify(itemArray))
+        cy.log(JSON.stringify(sorted_itemArray))
+      })
+    })
+
+    // REQ-PROD-006 in Descending order by Price Low to High
+    it.only('Sort Items Price Low - High', () => {
+
+      // select Lowest to Highest Price Order
+      cy.getDataTest('product-sort-container').select('lohi')
+    
+      cy.getItemAttributes(['name','price']).then((items) => {
+        
+        const itemArray = items.map(item => ({
+          name: item.name,
+          price: parseFloat(item['price'].replace('$',''))
+        }))
+        
+        const sorted_itemArray = [...itemArray].sort((a, b) => a.price - b.price)
+        expect(itemArray).to.deep.equal(sorted_itemArray)
+
+        cy.log(JSON.stringify(itemArray))
+        cy.log(JSON.stringify(sorted_itemArray))
+      })
+    })
+
   })
