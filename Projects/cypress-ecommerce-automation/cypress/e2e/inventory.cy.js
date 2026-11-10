@@ -50,15 +50,12 @@ describe('Inventory', () => {
 
       let itemNamesArray = []
       let sorted_itemNamesArray = []
-
-      cy.getDataTest('inventory-list')
-      .find('[data-test="inventory-item"]').each(($item) => {
-        cy.wrap($item).find('[data-test="inventory-item-name"]').
-        invoke('text').then((name) => {
-          itemNamesArray.push(name.trim())
-        })
-      }).then(() => {
-        
+    
+      cy.getItemAttributes(['name']).then((items) => {
+        items.forEach(element => {
+          itemNamesArray.push(element['name'])
+        });
+      }).then(()=>{
         sorted_itemNamesArray = [...itemNamesArray].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
         expect(itemNamesArray).to.deep.equal(sorted_itemNamesArray)
         cy.log(JSON.stringify(itemNamesArray))
@@ -69,20 +66,17 @@ describe('Inventory', () => {
     // REQ-PROD-004 in Descending order by name
     it('Sort Items ZA', () => {
 
-      // select A-Z Order
+      // select Z-A Order
       cy.getDataTest('product-sort-container').select('za')
 
       let itemNamesArray = []
       let sorted_itemNamesArray = []
-
-      cy.getDataTest('inventory-list')
-      .find('[data-test="inventory-item"]').each(($item) => {
-        cy.wrap($item).find('[data-test="inventory-item-name"]').
-        invoke('text').then((name) => {
-          itemNamesArray.push(name.trim())
-        })
-      }).then(() => {
-        
+    
+      cy.getItemAttributes(['name']).then((items) => {
+        items.forEach(element => {
+          itemNamesArray.push(element['name'])
+        });
+      }).then(()=>{
         sorted_itemNamesArray = [...itemNamesArray].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' })).reverse()
         expect(itemNamesArray).to.deep.equal(sorted_itemNamesArray)
         cy.log(JSON.stringify(itemNamesArray))
