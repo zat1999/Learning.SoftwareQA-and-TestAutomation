@@ -42,3 +42,28 @@ Cypress.Commands.add('login', (username, password) => {
     })
 })
 
+Cypress.Commands.add('getItemAttributes', (attributes) => {
+    const productsArray = []
+
+    cy.get('[data-test="inventory-list"]')
+    .find('[data-test="inventory-item"]').each(($item) => {
+        
+        const productObj = {}
+        attributes.forEach((attribute) => {
+            cy.wrap($item).find(`[data-test="inventory-item-${attribute}"]`)
+            .invoke('text')
+            .then((value) => {
+                productObj[attribute] = value.trim()
+            })
+        });
+        
+        cy.then(() => {
+            productsArray.push(productObj)
+        })
+    }).then(() => {
+
+        return productsArray
+    })
+
+})
+
