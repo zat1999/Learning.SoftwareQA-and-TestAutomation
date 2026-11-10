@@ -1,0 +1,12 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/orders"
+method: GET
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 7000

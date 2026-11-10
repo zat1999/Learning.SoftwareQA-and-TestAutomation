@@ -1,0 +1,18 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/orders/:orderId"
+method: PATCH
+pathVariables:
+  orderId: BoKsTxMAZiMKmbrp_6QiE
+body:
+  type: json
+  content: "{\r
+
+    \    \"customerName\": \"John {{$randomLastName}}\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 4000
