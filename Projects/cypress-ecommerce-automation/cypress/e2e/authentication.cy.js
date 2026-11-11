@@ -3,12 +3,12 @@ describe('Login Page', () => {
     cy.visit('/')
   })
   
-  
+  // REQ-AUTH-001, EQ-AUTH-007
   it('Pass', () => {  
     cy.getDataTest('secondary-header').should('not.exist')
     cy.login('standard_user', 'secret_sauce')
     cy.getDataTest('login-button').click()
-    cy.getDataTest('secondary-header').should('exist')        // imo better if check via url but url is the same for login and menu page.
+    cy.getDataTest('secondary-header').should('exist')        
     cy.getDataTest('secondary-header').within(() => {
       cy.getDataTest('title').contains("Products")
     })
@@ -18,6 +18,7 @@ describe('Login Page', () => {
     cy.getDataTest('secondary-header').should('not.exist')
   })
 
+  // EQ-AUTH-002, EQ-AUTH-003, EQ-AUTH-004, EQ-AUTH-005, EQ-AUTH-006
   it('Fail', () => {
     cy.login('standard_users', 'secret_sauce')  // wrong username, correct password
     cy.getDataTest('login-button').click()
@@ -40,6 +41,7 @@ describe('Login Page', () => {
     cy.getDataTest('error').contains(/Username is required/i)
   })
 
+  // EQ-AUTH-007
   it('Fail - locked_out users', () => {
 
     cy.login('locked_out_user', 'secret_sauce')  // locked out user, correct password
