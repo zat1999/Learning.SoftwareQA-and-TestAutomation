@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 class InventoryPage:
 
@@ -14,35 +16,48 @@ class InventoryPage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
 
     # get the title
     def get_title(self):
-        return self.driver.find_element(*self.TITLE).text
+        title = self.wait.until(
+            EC.visibility_of_element_located(self.TITLE)
+        )
+        return title.text
 
     # get the number of items
     def get_product_count(self):
-        return len(self.driver.find_elements(*self.INVENTORY_ITEMS))
+        items = self.wait.until(
+            EC.visibility_of_all_elements_located(self.INVENTORY_ITEMS)
+        )
+        return len(items)
 
     # get the name of each item
     def get_product_names(self):
-        return [
-            element.text
-            for element in self.driver.find_elements(*self.PRODUCT_NAMES)
-        ]
+
+        elements = self.wait.until(
+            EC.visibility_of_all_elements_located(self.PRODUCT_NAMES)
+        )
+
+        return [element.text for element in elements]
 
     # get the price of each item
     def get_product_prices(self):
+
+        elements = self.wait.until(
+            EC.visibility_of_all_elements_located(self.PRODUCT_PRICES)
+        )
         return [
-            float(element.text.replace("$", ""))
-            for element in self.driver.find_elements(*self.PRODUCT_PRICES)
+            float(element.text.replace("$", "")) for element in elements
+            
         ]
 
     # select the value of the dropdown list
     def sort_products(self, option):
-        dropdown = Select(
-            self.driver.find_element(*self.SORT_DROPDOWN)
+        dropdown = self.wait.until(
+            EC.visibility_of_element_located(self.SORT_DROPDOWN)
         )
-        dropdown.select_by_value(option)
+        Select(dropdown).select_by_value(option)
 
     # based on ID add to the cart
     def add_product_to_cart(self, product_id):
@@ -50,7 +65,10 @@ class InventoryPage:
             By.ID,
             f"add-to-cart-{product_id}",
         )
-        self.driver.find_element(*locator).click()
+        self.wait.until(
+            EC.element_to_be_clickable(locator)
+        ).click()
+        
 
     # get the number of items in the cart
     def get_cart_count(self):
@@ -59,4 +77,11 @@ class InventoryPage:
 
     # open the cart
     def open_cart(self):
-        self.driver.find_element(*self.CART_LINK).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.CART_LINK).click()
+        )
+
+    def wait_for_cart_count(self, expected_count):
+        self.wait.until(
+        lambda driver: self.get_cart_count() == expected_count
+    )

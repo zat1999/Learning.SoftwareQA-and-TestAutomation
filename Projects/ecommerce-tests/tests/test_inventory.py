@@ -47,10 +47,12 @@ def test_sort_products_by_price(inventory, option, reverse):
 
 # adds a product to the cart
 def test_add_product_to_cart(inventory):
-    time.sleep(2)
+    
     inventory.add_product_to_cart("sauce-labs-backpack")
+    inventory.wait_for_cart_count(1)
     assert inventory.get_cart_count() == 1
-    time.sleep(2)
+    
     inventory.add_product_to_cart("sauce-labs-bike-light")
+    inventory.wait_for_cart_count(2)
     assert inventory.get_cart_count() == 2
-    time.sleep(2)
+    

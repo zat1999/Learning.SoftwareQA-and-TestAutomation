@@ -15,16 +15,16 @@ def checkout(checkout_in_driver):
 def test_enter_cart(inventory, checkout, driver):
     inventory.add_product_to_cart("sauce-labs-backpack")
     checkout.enter_cart()
-    time.sleep(1.5)
+    checkout.wait_for_url("/cart.html")
     assert "/cart.html" in driver.current_url
 
 def test_continue_checkout(inventory, checkout, driver):
     inventory.add_product_to_cart("sauce-labs-backpack")
     checkout.enter_cart()
-    time.sleep(1.5)
+    checkout.wait_for_url("/cart.html")
     assert "/cart.html" in driver.current_url
     checkout.checkout_step_one()
-    time.sleep(1.5)
+    checkout.wait_for_url("/checkout-step-one.html")
     assert "/checkout-step-one.html" in driver.current_url
 
 # run a test for each user setting
@@ -40,26 +40,23 @@ def test_continue_checkout(inventory, checkout, driver):
 def test_form_fill(inventory, checkout, driver, fname, lname, post, expected_page):
     inventory.add_product_to_cart("sauce-labs-backpack")
     checkout.enter_cart()
-    time.sleep(1.5)
+    checkout.wait_for_url("/cart.html")
     assert "/cart.html" in driver.current_url
     checkout.checkout_step_one()
-    time.sleep(1.5)
     checkout.fill_form(fname, lname, post)
-    time.sleep(1.5)
     checkout.checkout_continue()
-    time.sleep(1.5)
+    checkout.wait_for_url(expected_page)
     assert expected_page in driver.current_url
 
 
 def test_finish_checkout(inventory, checkout, driver):
     inventory.add_product_to_cart("sauce-labs-backpack")
     checkout.enter_cart()
-    time.sleep(1.5)
+    checkout.wait_for_url("/cart.html")
     assert "/cart.html" in driver.current_url
     checkout.checkout_step_one()
     checkout.fill_form(fname = "John", lname  = "Smith", postal = "12345")
     checkout.checkout_continue()
-    time.sleep(1.5)
     checkout.checkout_finish()
-    time.sleep(1.5)
+    checkout.wait_for_url("checkout-complete.html")
     assert "checkout-complete.html" in driver.current_url

@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class LoginPage:
     # Locators
@@ -9,14 +11,27 @@ class LoginPage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
 
     def open(self, base_url):
         self.driver.get(base_url)
 
     def login(self, username, password):
-        self.driver.find_element(*self.USERNAME).send_keys(username)
-        self.driver.find_element(*self.PASSWORD).send_keys(password)
-        self.driver.find_element(*self.LOGIN_BUTTON).click()
+        # 1
+        self.wait.until(
+            EC.visibility_of_element_located(self.USERNAME)
+        ).send_keys(username)
+
+        self.wait.until(
+            EC.visibility_of_element_located(self.PASSWORD)
+        ).send_keys(password)
+
+        self.wait.until(
+            EC.element_to_be_clickable(self.LOGIN_BUTTON)
+        ).click()
 
     def get_error_message(self):
-        return self.driver.find_element(*self.ERROR_MESSAGE)
+        errorMsg = self.wait.until(
+            EC.visibility_of_element_located(self.ERROR_MESSAGE)
+        )
+        return errorMsg.text

@@ -1,5 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class CheckoutPage:
 
@@ -16,20 +18,46 @@ class CheckoutPage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 10)
 
     def enter_cart(self):
-        self.driver.find_element(*self.CART_BUTTON).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.CART_BUTTON)
+        ).click()
+        
 
     def checkout_step_one(self):
-        self.driver.find_element(*self.CHECKOUT_BUTTON).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.CHECKOUT_BUTTON)
+        ).click()
 
     def fill_form(self, fname, lname, postal):
-        self.driver.find_element(*self.FIRST_NAME_FORM).send_keys(fname)
-        self.driver.find_element(*self.LAST_NAME_FORM).send_keys(lname)
-        self.driver.find_element(*self.POSTAL_CODE_FORM).send_keys(postal)
+        
+        self.wait.until(
+            EC.visibility_of_element_located(self.FIRST_NAME_FORM)
+        ).send_keys(fname)
+        
+        self.wait.until(
+            EC.visibility_of_element_located(self.LAST_NAME_FORM)
+        ).send_keys(lname)
+        
+        self.wait.until(
+            EC.visibility_of_element_located(self.POSTAL_CODE_FORM)
+        ).send_keys(postal)
+        
+        # self.driver.find_element(*self.FIRST_NAME_FORM).send_keys(fname)
+        # self.driver.find_element(*self.LAST_NAME_FORM).send_keys(lname)
+        # self.driver.find_element(*self.POSTAL_CODE_FORM).send_keys(postal)
 
     def checkout_continue(self):
-        self.driver.find_element(*self.CONTINUE_BUTTON).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.CONTINUE_BUTTON)
+        ).click()
 
     def checkout_finish(self):
-        self.driver.find_element(*self.FINISH_BUTTON).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.FINISH_BUTTON)
+        ).click()
+
+    def wait_for_url(self, url):
+        self.wait.until(EC.url_contains(url))
