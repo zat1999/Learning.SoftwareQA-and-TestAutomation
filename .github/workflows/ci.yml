@@ -47,3 +47,25 @@ jobs:
         env:
           HEADLESS: 'true'
         run: python -m pytest
+
+
+  cypress-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: Projects/cypress-ecommerce-test-automation/package-lock.json
+
+      - name: Run Cypress E2E tests
+        uses: cypress-io/github-action@v7
+        with:
+          working-directory: ./Projects/cypress-ecommerce-test-automation
+          command: npm run cy:run
+          browser: chrome
