@@ -34,16 +34,16 @@ jobs:
         with:
           python-version: '3.12'
           cache: pip
-          cache-dependency-path: Projects/ecommerce-tests/requirements.txt
+          cache-dependency-path: Projects/selenium-ecommerce-test-automation/requirements.txt
 
       - name: Install dependencies
-        working-directory: ./Projects/ecommerce-tests
+        working-directory: ./Projects/selenium-ecommerce-test-automation
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
       - name: Run e-commerce browser tests
-        working-directory: ./Projects/ecommerce-tests
+        working-directory: ./Projects/selenium-ecommerce-test-automation
         env:
           HEADLESS: 'true'
         run: python -m pytest
