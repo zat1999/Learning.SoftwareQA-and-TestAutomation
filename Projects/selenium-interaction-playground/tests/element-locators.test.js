@@ -27,7 +27,7 @@ describe('Element Locators', function () {
         }
     });
 
-    // test case 1 - find element by ID 
+    // REQ-LOC-001, REQ-LOC-005
     it('should locate an element using ID', async function () {
 
         const element = await driver.findElement(By.id('my-text-id'));
@@ -36,7 +36,7 @@ describe('Element Locators', function () {
         
     });
 
-    // test case 2 - find element by name
+    // REQ-LOC-002, REQ-LOC-005
     it('should locate an element using Name', async function () {
 
         const element = await driver.findElement(By.name('my-password'));
@@ -45,7 +45,7 @@ describe('Element Locators', function () {
 
     });
 
-    // test case 3 - find element by css
+    // REQ-LOC-003, REQ-LOC-005
     it('should locate an element using CSS Selector', async function () {
 
         const element = await driver.findElement(
@@ -56,7 +56,7 @@ describe('Element Locators', function () {
 
     });
 
-    // test case 4 - find element by xpath id
+    // REQ-LOC-004, REQ-LOC-005
     it('should locate an element using XPath', async function () {
 
         const element = await driver.findElement(
@@ -65,6 +65,16 @@ describe('Element Locators', function () {
 
         expect(await element.isDisplayed()).to.be.true;
 
+    });
+
+    // REQ-LOC-006, REQ-LOC-007
+    it('should retrieve and verify the number of elements', async function () {
+
+        const elements = await driver.findElements(
+            By.className('form-check-label')
+        )
+        
+        expect(elements).to.have.lengthOf(4);
     });
 
 });
