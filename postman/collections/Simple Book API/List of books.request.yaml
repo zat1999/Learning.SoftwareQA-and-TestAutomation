@@ -1,0 +1,65 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/books"
+method: GET
+queryParams:
+  - key: type
+    value: fiction
+    disabled: true
+    description: ""
+  - key: type
+    value: non-fiction
+    disabled: true
+    description: ""
+  - key: limit
+    value: "3"
+    disabled: true
+    description: ""
+scripts:
+  - type: afterResponse
+    code: "let responseBody = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Response search is limited to 3 Books\", () => {\r
+
+      \    pm.expect(responseBody.length).to.equal(3);\r
+
+      })"
+    language: text/javascript
+  - type: beforeRequest
+    code: "let baseUrl = pm.variables.get(\"baseUrl\");\r
+
+      console.log(baseUrl)\r
+
+      \r
+
+      try {\r
+
+      \    const response = await pm.sendRequest({\r
+
+      \        url: `${baseUrl}/books/?limit=3`,\r
+
+      \        method: \"GET\"\r
+
+      \    });\r
+
+      \r
+
+      \    console.log(response.json());\r
+
+      } catch (err) {\r
+
+      \    console.error(err);\r
+
+      }"
+    language: text/javascript
+order: 2000

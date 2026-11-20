@@ -1,0 +1,16 @@
+$kind: http-request
+description: ""
+url: "{{baseUrl}}/orders/:orderId"
+method: GET
+pathVariables:
+  - key: orderId
+    value: BoKsTxMAZiMKmbrp_6QiE
+    description: ""
+body:
+  type: json
+  content: ""
+auth:
+  type: bearer
+  credentials:
+    token: "{{accessToken}}"
+order: 6000
