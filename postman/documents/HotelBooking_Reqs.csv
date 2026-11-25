@@ -1,0 +1,11 @@
+Requirement_ID,Module,Requirement_Description,Acceptance_Criteria
+REQ-API-001,Health Check,The API shall provide a health check endpoint,The API shall return HTTP 201 when the health check is successful
+REQ-API-002,Authentication,The API shall generate an authentication token,The API shall return a valid token when valid credentials are supplied
+REQ-API-003,Booking Retrieval,The API shall retrieve all booking IDs,The API shall return a list of booking IDs
+REQ-API-004,Booking Creation,The API shall allow users to create a booking,The API shall return HTTP 200 and a booking ID when valid booking data is submitted
+REQ-API-005,Booking Retrieval,The API shall retrieve a booking by ID,The API shall return the corresponding booking details
+REQ-API-006,Booking Update,The API shall allow authorized users to update bookings,The API shall return HTTP 200 when a booking is successfully updated
+REQ-API-007,Partial Update,The API shall allow authorized users to partially update bookings,The API shall update only the specified fields
+REQ-API-008,Booking Deletion,The API shall allow authorized users to delete bookings,The API shall return HTTP 201 when a booking is successfully deleted
+REQ-API-009,Negative Testing,The API shall handle invalid booking identifiers,The API shall return an appropriate error response
+REQ-API-010,Negative Testing,The API shall reject invalid authentication credentials,The API shall not generate a valid authentication token
