@@ -3,7 +3,9 @@ This directory contains some sample projects and tutorials for testing the Postm
 
 ## Sample Projects
 - Hotel Booking API AUtomation
-    - Simulate hotel booking application.
+    - Simulate hotel booking application - create bookings, retrieve booking details, update or delete booking details. 
+    - Validate invalid booking data.
+    - Chain requests using booking IDs.
     - Using API from [Hotel Booking Site](https://restful-booker.herokuapp.com/apidoc/index.html)
 - Simple Book API
     - Test Rest API : GET, POST, PUT, PATCH and DELETE.
