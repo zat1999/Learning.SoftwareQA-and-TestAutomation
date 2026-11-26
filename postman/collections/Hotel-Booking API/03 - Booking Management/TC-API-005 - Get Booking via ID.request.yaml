@@ -1,0 +1,66 @@
+$kind: http-request
+url: "{{baseUrl}}/booking/{{bookingId}}"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "\r
+
+      pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      \r
+
+      pm.test(\"First name should match request\", function () {\r
+
+      \    pm.expect(response.firstname).to.eql(\"John\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Last name should match request\", function () {\r
+
+      \    pm.expect(response.lastname).to.eql(\"Smith\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Total price should match request\", function () {\r
+
+      \    pm.expect(response.totalprice).to.eql(250);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Deposit paid should be true\", function () {\r
+
+      \    pm.expect(response.depositpaid).to.eql(true);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Booking dates should match request\", function () {\r
+
+      \    pm.expect(response.bookingdates.checkin)\r
+
+      \        .to.eql(\"2026-12-01\");\r
+
+      \r
+
+      \    pm.expect(response.bookingdates.checkout)\r
+
+      \        .to.eql(\"2026-12-05\");\r
+
+      });"
+    language: text/javascript
+order: 2000

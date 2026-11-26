@@ -1,0 +1,117 @@
+$kind: http-request
+url: "{{baseUrl}}/booking"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"firstname\": \"John\",\r
+
+    \    \"lastname\": \"Smith\",\r
+
+    \    \"totalprice\": 250,\r
+
+    \    \"depositpaid\": true,\r
+
+    \    \"bookingdates\": {\r
+
+    \        \"checkin\": \"2026-12-01\",\r
+
+    \        \"checkout\": \"2026-12-05\"\r
+
+    \    },\r
+
+    \    \"additionalneeds\": \"Breakfast\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "// TC-API-004: Create Booking\r
+
+      \r
+
+      pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Response should contain booking ID number\", function () {\r
+
+      \    pm.expect(response).to.have.property(\"bookingid\");\r
+
+      \    pm.expect(response.bookingid).to.be.a(\"number\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Booking details should be returned\", function () {\r
+
+      \    pm.expect(response).to.have.property(\"booking\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"First name should match request\", function () {\r
+
+      \    pm.expect(response.booking.firstname).to.eql(\"John\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Last name should match request\", function () {\r
+
+      \    pm.expect(response.booking.lastname).to.eql(\"Smith\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Total price should match request\", function () {\r
+
+      \    pm.expect(response.booking.totalprice).to.eql(250);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Deposit paid should be true\", function () {\r
+
+      \    pm.expect(response.booking.depositpaid).to.eql(true);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Booking dates should match request\", function () {\r
+
+      \    pm.expect(response.booking.bookingdates.checkin)\r
+
+      \        .to.eql(\"2026-12-01\");\r
+
+      \r
+
+      \    pm.expect(response.booking.bookingdates.checkout)\r
+
+      \        .to.eql(\"2026-12-05\");\r
+
+      });\r
+
+      \r
+
+      // automatically saves generated booking ID to env variable. \r
+
+      pm.environment.set(\"bookingId\", response.bookingid);\r
+
+      console.log(\"Created Booking ID:\", response.bookingid);"
+    language: text/javascript
+order: 1000
