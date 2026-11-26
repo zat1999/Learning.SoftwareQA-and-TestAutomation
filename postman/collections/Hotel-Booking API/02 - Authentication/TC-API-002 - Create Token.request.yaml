@@ -1,0 +1,47 @@
+$kind: http-request
+url: "{{baseUrl}}/auth"
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"username\": \"{{username}}\",\r
+
+    \    \"password\": \"{{password}}\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "\r
+
+      pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"Response should contain an authentication token\", function () {\r
+
+      \    pm.expect(response).to.have.property(\"token\");\r
+
+      \    pm.expect(response.token).to.be.a(\"string\");\r
+
+      \    pm.expect(response.token).to.not.be.empty;\r
+
+      });\r
+
+      \r
+
+      // sets token in environment variable for future requests\r
+
+      pm.environment.set(\"token\", response.token);\r
+
+      console.log(\"Authentication token generated successfully\");"
+    language: text/javascript
+order: 1000

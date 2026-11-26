@@ -1,0 +1,87 @@
+$kind: http-request
+url: "{{baseUrl}}/booking/{{bookingId}}"
+method: PUT
+headers:
+  Accept: application/json
+  Cookie: token={{token}}
+body:
+  type: json
+  content: "{\r
+
+    \    \"firstname\": \"Jane\",\r
+
+    \    \"lastname\": \"Smith\",\r
+
+    \    \"totalprice\": 500,\r
+
+    \    \"depositpaid\": false,\r
+
+    \    \"bookingdates\": {\r
+
+    \        \"checkin\": \"2026-12-10\",\r
+
+    \        \"checkout\": \"2026-12-15\"\r
+
+    \    },\r
+
+    \    \"additionalneeds\": \"Lunch\"\r
+
+    }"
+auth:
+  type: noauth
+scripts:
+  - type: afterResponse
+    code: "pm.test(\"Status code is 200\", function () {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      });\r
+
+      \r
+
+      const response = pm.response.json();\r
+
+      \r
+
+      pm.test(\"First name should be updated\", function () {\r
+
+      \    pm.expect(response.firstname).to.eql(\"Jane\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Last name should be updated\", function () {\r
+
+      \    pm.expect(response.lastname).to.eql(\"Smith\");\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Total price should be updated\", function () {\r
+
+      \    pm.expect(response.totalprice).to.eql(500);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Deposit paid should be false\", function () {\r
+
+      \    pm.expect(response.depositpaid).to.eql(false);\r
+
+      });\r
+
+      \r
+
+      pm.test(\"Additional needs should be updated\", function () {\r
+
+      \    pm.expect(response.additionalneeds).to.eql(\"Lunch\");\r
+
+      });"
+    language: text/javascript
+settings:
+  disabledSystemHeaders:
+    - accept
+order: 3000
