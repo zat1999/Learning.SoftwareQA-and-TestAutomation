@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{baseUrl}}/booking/{{bookingId}}"
+method: DELETE
+headers:
+  Cookie: token={{token}}
+  Accept: application/json
+settings:
+  disabledSystemHeaders:
+    - accept
+order: 5000
